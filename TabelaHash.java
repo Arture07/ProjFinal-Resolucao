@@ -1,3 +1,4 @@
+// Tabela hash propria com tratamento de colisoes por encadeamento
 public class TabelaHash {
     public No[] baldes;
     public int M;
@@ -39,6 +40,7 @@ public class TabelaHash {
         }
     }
 
+    // Insere o tripulante no balde correspondente (no fim da lista se houver colisao)
     public void inserir(Tripulante novo) {
         int indice = calcularHash(novo.planeta);
         No novoNo = new No(novo);
@@ -56,6 +58,7 @@ public class TabelaHash {
         totalTripulantes++;
     }
 
+    // Vai direto ao balde calculado pelo hash e lista quem for daquele planeta
     public void buscarPorPlaneta(String planeta) {
         String chave = Tripulante.formatarChave(planeta);
         int indice = calcularHash(chave);
@@ -76,6 +79,7 @@ public class TabelaHash {
         }
     }
 
+    // Procura o codigo nos baldes e ajusta os ponteiros da lista para remover o no
     public boolean removerPorCodigo(int codigo) {
         for (int i = 0; i < M; i++) {
             No atual = baldes[i];
@@ -149,6 +153,7 @@ public class TabelaHash {
         System.out.println("Numero de colisoes   : " + colisoes);
     }
 
+    // Copia todos os tripulantes da tabela para um vetor antes da ordenacao
     public Tripulante[] exportarParaVetor() {
         Tripulante[] vetor = new Tripulante[totalTripulantes];
         int pos = 0;

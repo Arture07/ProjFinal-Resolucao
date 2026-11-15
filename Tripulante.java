@@ -1,5 +1,6 @@
 import java.text.Normalizer;
 
+// Representa um tripulante da estacao espacial
 public class Tripulante {
     public int codigo;
     public String nome;
@@ -13,6 +14,7 @@ public class Tripulante {
         this.funcao = funcao;
     }
 
+    // Remove acentos e converte para maiusculas para padronizar a chave da tabela
     public static String formatarChave(String texto) {
         String semAcento = Normalizer.normalize(texto.trim(), Normalizer.Form.NFD);
         return semAcento.replaceAll("\\p{M}", "").toUpperCase();

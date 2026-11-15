@@ -3,6 +3,7 @@ public class Ordenacao {
     public static long trocas = 0;
     public static long tempo = 0;
 
+    // Cria uma copia independente para que cada algoritmo ordene os mesmos dados
     public static Tripulante[] copiarVetor(Tripulante[] original) {
         Tripulante[] copia = new Tripulante[original.length];
         for (int i = 0; i < original.length; i++) {
@@ -11,6 +12,7 @@ public class Ordenacao {
         return copia;
     }
 
+    // Bubble Sort: compara vizinhos e troca os assentos fora de ordem
     public static void bubbleSort(Tripulante[] v, boolean passoAPasso) {
         comparacoes = 0;
         trocas = 0;
@@ -56,6 +58,7 @@ public class Ordenacao {
         tempo = System.nanoTime() - inicio;
     }
 
+    // Insertion Sort: desloca os maiores para a direita e encaixa o eleito na posicao certa
     public static void insertionSort(Tripulante[] v) {
         comparacoes = 0;
         trocas = 0;
@@ -81,6 +84,7 @@ public class Ordenacao {
         tempo = System.nanoTime() - inicio;
     }
 
+    // Quick Sort: usa o elemento do meio como pivo para evitar pior caso em vetores ordenados
     public static void quickSort(Tripulante[] v) {
         comparacoes = 0;
         trocas = 0;

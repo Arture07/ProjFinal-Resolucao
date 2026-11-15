@@ -87,6 +87,9 @@ public class Main {
         sc.close();
     }
 
+    // Le um numero inteiro sem quebrar o programa se o usuario digitar letras ou
+    // Enter vazio
+    // Le um numero inteiro sem quebrar o programa se o usuario digitar letras ou Enter vazio
     public static int lerInteiro(Scanner sc) {
         try {
             return Integer.parseInt(sc.nextLine().trim());
@@ -95,6 +98,7 @@ public class Main {
         }
     }
 
+    // Carrega os tripulantes iniciais do arquivo texto (codigo;nome;planeta;funcao)
     public static void carregarArquivo(TabelaHash tabela) {
         try {
             Scanner leitor = new Scanner(new File("tripulantes.txt"));
@@ -128,6 +132,7 @@ public class Main {
         }
     }
 
+    // Ordena copias da tripulacao atual com os 3 algoritmos e compara o desempenho
     public static void organizarEmbarque(TabelaHash tabela) {
         Tripulante[] original = tabela.exportarParaVetor();
         Tripulante[] copia1 = Ordenacao.copiarVetor(original);
@@ -152,6 +157,7 @@ public class Main {
         }
     }
 
+    // Mostra na tela cada comparacao e troca do Bubble Sort com ate 6 tripulantes
     public static void modoPassoAPasso(TabelaHash tabela) {
         Tripulante[] todos = tabela.exportarParaVetor();
         int qtd = 6;
@@ -167,6 +173,9 @@ public class Main {
         Ordenacao.bubbleSort(amostra, true);
     }
 
+    // Gera n tripulantes com codigos unicos de 8 digitos (incrementos positivos +
+    // embaralhamento)
+    // Gera n tripulantes com codigos unicos de 8 digitos (incrementos positivos + embaralhamento)
     public static Tripulante[] gerarAleatorios(int n) {
         Tripulante[] v = new Tripulante[n];
         Random rand = new Random(42);
@@ -197,6 +206,9 @@ public class Main {
         }
     }
 
+    // Mede tempo, comparacoes e trocas com 50, 1.000 e 10.000 tripulantes em 3
+    // situacoes
+    // Mede tempo, comparacoes e trocas com 50, 1.000 e 10.000 tripulantes em 3 situacoes
     public static void grandeCorrida() {
         int[] tamanhos = { 50, 1000, 10000 };
 
