@@ -87,8 +87,6 @@ public class Main {
         sc.close();
     }
 
-    // Le um numero inteiro sem quebrar o programa se o usuario digitar letras ou
-    // Enter vazio
     // Le um numero inteiro sem quebrar o programa se o usuario digitar letras ou Enter vazio
     public static int lerInteiro(Scanner sc) {
         try {
@@ -173,8 +171,6 @@ public class Main {
         Ordenacao.bubbleSort(amostra, true);
     }
 
-    // Gera n tripulantes com codigos unicos de 8 digitos (incrementos positivos +
-    // embaralhamento)
     // Gera n tripulantes com codigos unicos de 8 digitos (incrementos positivos + embaralhamento)
     public static Tripulante[] gerarAleatorios(int n) {
         Tripulante[] v = new Tripulante[n];
@@ -206,8 +202,6 @@ public class Main {
         }
     }
 
-    // Mede tempo, comparacoes e trocas com 50, 1.000 e 10.000 tripulantes em 3
-    // situacoes
     // Mede tempo, comparacoes e trocas com 50, 1.000 e 10.000 tripulantes em 3 situacoes
     public static void grandeCorrida() {
         int[] tamanhos = { 50, 1000, 10000 };

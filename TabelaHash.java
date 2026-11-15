@@ -1,4 +1,4 @@
-// Tabela hash propria com tratamento de colisoes por encadeamento
+// Tabela hash com tratamento de colisoes por encadeamento
 public class TabelaHash {
     public No[] baldes;
     public int M;
@@ -14,7 +14,7 @@ public class TabelaHash {
         this.colisoes = 0;
     }
 
-    // Funcao Hash 1: soma dos caracteres (material de apoio)
+    // Funcao Hash 1: soma dos caracteres
     public int funcaoHash1(String chave) {
         int soma = 0;
         for (int i = 0; i < chave.length(); i++) {
@@ -23,7 +23,7 @@ public class TabelaHash {
         return soma % M;
     }
 
-    // Funcao Hash 2: caractere multiplicado pela posicao (criada pelo grupo)
+    // Funcao Hash 2: caractere multiplicado pela posicao
     public int funcaoHash2(String chave) {
         int soma = 0;
         for (int i = 0; i < chave.length(); i++) {
