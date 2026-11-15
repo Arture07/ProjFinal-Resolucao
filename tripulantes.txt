@@ -1,0 +1,50 @@
+50318842;Zibo Zumbido;Marte;Piloto
+21004571;Quark Quarkinho;Marte;Engenheiro de dobra
+38820019;Lumi Lunar;Jupiter;Navegadora
+12093355;Gloop Gelatina;Plutao;Cozinheiro espacial
+77410028;Cometa Clotilde;Venus;Astronoma
+45001276;Pixel Pulsar;Mercurio;Tecnica de antenas
+63390114;Vovo Vortex;Vega;Comandante
+29981530;Plim Plutonico;Plutao;Medico de bordo
+84120967;Fafa Foguete;Venus;Mecanica
+16672043;Nebulosa Nina;Netuno;Cartografa
+57033218;Orbi Orbital;Saturno;Piloto reserva
+33450981;Tico Telescopio;Marte;Observador
+90215574;Jujuba Jupiteriana;Jupiter;Botanica
+41127730;Kiko Kepler;Kepler;Cientista
+72208815;Zuzu Zigue-Zague;Orion;Acrobata gravitacional
+25560349;Mimi Meteoro;Urano;Comunicacoes
+68873002;Astro Astrolabio;Sirius;Navegador
+19940278;Bolota Buraco-Negro;Andromeda;Guardiao da despensa
+54417763;Tchuca Titanica;Saturno;Faxineira estelar
+80031496;Gugu Galaxia;Vega;Musico de bordo
+11223344;Beto Bip-Bop;Marte;Robo faxineiro
+95412033;Lola Laser;Marte;Artilheira de fotons
+61209845;Pipo Proton;Marte;Eletricista quantico
+48912300;Dona Dobra;Jupiter;Especialista em portais
+73910422;Rafa Fogueteiro;Jupiter;Manobrista de naves
+15887410;Bibi Bolido;Plutao;Zeladora criogenica
+88341209;Caco Cosmico;Venus;DJ intergalactico
+30192847;Nana Neutron;Mercurio;Operadora de radar
+52901843;Tito Tachyon;Saturno;Mensageiro superluminal
+67431092;Vava Via-Lactea;Urano;Queijeiro espacial
+23890145;Zeca Zero-G;Netuno;Instrutor de flutuacao
+91028374;Kika Quasar;Kepler;Fisica de estrelas
+44556677;Xuxa Xenon;Orion;Iluminadora de nebulosas
+78901234;Buba Buraco-Branco;Andromeda;Despachante de cargas
+36925814;Pipoca Planetaria;Marte;Chef de meteoritos
+82736451;Sisi Supernova;Sirius;Pirotecnica estelar
+14725836;Gigi Gravidade;Vega;Equilibrista de orbita
+59382716;Dudu Deuterio;Marte;Abastecedor de reator
+98765432;Lili Cinturao;Saturno;Colecionadora de aneis
+27182818;Euler Espacial;Kepler;Calculista de rotas
+31415926;Pi Pirata;Plutao;Contrabandista de poeira
+65432109;Momo Marciano;Marte;Jardineiro de crateras
+70809010;Nini Neblina;Netuno;Meteorologista gasosa
+42004200;Marvin Mochileiro;Betelgeuse;Turista com toalha
+86420975;Zaza Zenite;Aldebaran;Vigia do espaco profundo
+13579246;Teco Teleporte;Centauri;Operador de teletransporte
+50506060;Lulu Lente;Andromeda;Polidora de telescopios
+74185296;Roro Robotico;Marte;Mecanico de androides
+39182736;Cici Cintilante;Venus;Pintora de constelacoes
+60708090;Bobo Boson;Jupiter;Testador de gravidade
