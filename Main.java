@@ -196,7 +196,7 @@ public class Main {
     public static void modoPassoAPasso(TabelaHash tabela) {
         Tripulante[] todos = tabela.exportarParaVetor();
         int qtd = 10;
-        if (todos.length < 10) {
+        if (todos.length < qtd) {
             qtd = todos.length;
         }
 
