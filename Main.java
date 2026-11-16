@@ -192,7 +192,7 @@ public class Main {
         }
     }
 
-    // Mostra na tela cada comparacao e troca do Bubble Sort com ate 10 tripulantes
+    // Mostra na tela cada comparacao e troca dos 3 algoritmos com ate 10 tripulantes
     public static void modoPassoAPasso(TabelaHash tabela) {
         Tripulante[] todos = tabela.exportarParaVetor();
         int qtd = 10;
@@ -205,13 +205,29 @@ public class Main {
             primeiros[i] = todos[i];
         }
 
-        Ordenacao.bubbleSort(primeiros, true);
+        System.out.println("\n===== BUBBLE SORT =====");
+        Tripulante[] c1 = Ordenacao.copiarVetor(primeiros);
+        Ordenacao.bubbleSort(c1, true);
+        mostrarTotais(c1, "Trocas");
 
-        System.out.println("\nTotal no passo a passo -> Comparacoes: "
-                + Ordenacao.comparacoes + " | Trocas: " + Ordenacao.trocas);
+        System.out.println("\n===== INSERTION SORT =====");
+        Tripulante[] c2 = Ordenacao.copiarVetor(primeiros);
+        Ordenacao.insertionSort(c2, true);
+        mostrarTotais(c2, "Deslocamentos");
+
+        System.out.println("\n===== QUICK SORT =====");
+        Tripulante[] c3 = Ordenacao.copiarVetor(primeiros);
+        Ordenacao.quickSort(c3, true);
+        mostrarTotais(c3, "Trocas");
+    }
+
+    // Exibe os totais de comparacoes e trocas/deslocamentos e a fila final do passo a passo
+    public static void mostrarTotais(Tripulante[] v, String rotuloTrocas) {
+        System.out.println("\nTotal -> Comparacoes: "
+                + Ordenacao.comparacoes + " | " + rotuloTrocas + ": " + Ordenacao.trocas);
         System.out.println("--- ASSENTOS FINAIS APOS AS MANOBRAS ---");
-        for (int i = 0; i < primeiros.length; i++) {
-            System.out.println((i + 1) + ". " + primeiros[i]);
+        for (int i = 0; i < v.length; i++) {
+            System.out.println((i + 1) + ". " + v[i]);
         }
     }
 

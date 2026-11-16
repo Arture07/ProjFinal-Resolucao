@@ -61,6 +61,10 @@ public class Ordenacao {
     // Insertion Sort: desloca os maiores para a direita e encaixa o eleito na
     // posicao certa
     public static void insertionSort(Tripulante[] v) {
+        insertionSort(v, false);
+    }
+
+    public static void insertionSort(Tripulante[] v, boolean passoAPasso) {
         comparacoes = 0;
         trocas = 0;
         long inicio = System.nanoTime();
@@ -69,13 +73,25 @@ public class Ordenacao {
             Tripulante eleito = v[i];
             int j = i - 1;
 
+            if (passoAPasso) {
+                System.out.println("\n* Insertion Sort - inserindo " + eleito.nome + " (" + eleito.codigo + ")");
+            }
+
             while (j >= 0) {
                 comparacoes++;
                 if (v[j].codigo > eleito.codigo) {
+                    if (passoAPasso) {
+                        System.out.println("  " + v[j].nome + " (" + v[j].codigo + ") > "
+                                + eleito.nome + " (" + eleito.codigo + ")? SIM -> " + v[j].nome + " desce uma posicao");
+                    }
                     v[j + 1] = v[j];
                     trocas++;
                     j--;
                 } else {
+                    if (passoAPasso) {
+                        System.out.println("  " + v[j].nome + " (" + v[j].codigo + ") > "
+                                + eleito.nome + " (" + eleito.codigo + ")? NAO -> " + eleito.nome + " encaixa aqui");
+                    }
                     break;
                 }
             }
@@ -88,19 +104,27 @@ public class Ordenacao {
     // Quick Sort: usa o elemento do meio como pivo para evitar pior caso em vetores
     // ordenados
     public static void quickSort(Tripulante[] v) {
+        quickSort(v, false);
+    }
+
+    public static void quickSort(Tripulante[] v, boolean passoAPasso) {
         comparacoes = 0;
         trocas = 0;
         long inicio = System.nanoTime();
         if (v.length > 0) {
-            quickSortRec(v, 0, v.length - 1);
+            quickSortRec(v, 0, v.length - 1, passoAPasso);
         }
         tempo = System.nanoTime() - inicio;
     }
 
-    private static void quickSortRec(Tripulante[] v, int esq, int dir) {
+    private static void quickSortRec(Tripulante[] v, int esq, int dir, boolean passoAPasso) {
         int i = esq;
         int j = dir;
         int pivo = v[(esq + dir) / 2].codigo;
+
+        if (passoAPasso) {
+            System.out.println("\n* Quick Sort - pivo = " + pivo + " (posicoes " + esq + " ate " + dir + ")");
+        }
 
         while (i <= j) {
             comparacoes++;
@@ -116,6 +140,14 @@ public class Ordenacao {
             }
 
             if (i <= j) {
+                if (passoAPasso) {
+                    if (i != j) {
+                        System.out.println("  " + v[i].nome + " (" + v[i].codigo + ") e "
+                                + v[j].nome + " (" + v[j].codigo + ") trocam de assento!");
+                    } else {
+                        System.out.println("  " + v[i].nome + " (" + v[i].codigo + ") ja esta no lugar (pivo)");
+                    }
+                }
                 Tripulante temp = v[i];
                 v[i] = v[j];
                 v[j] = temp;
@@ -126,10 +158,10 @@ public class Ordenacao {
         }
 
         if (esq < j) {
-            quickSortRec(v, esq, j);
+            quickSortRec(v, esq, j, passoAPasso);
         }
         if (i < dir) {
-            quickSortRec(v, i, dir);
+            quickSortRec(v, i, dir, passoAPasso);
         }
     }
 }
