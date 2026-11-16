@@ -9,9 +9,9 @@ public class Tripulante {
 
     public Tripulante(int codigo, String nome, String planeta, String funcao) {
         this.codigo = codigo;
-        this.nome = nome;
+        this.nome = nome.trim();
         this.planeta = formatarChave(planeta);
-        this.funcao = funcao;
+        this.funcao = funcao.trim();
     }
 
     // Remove acentos e converte para maiusculas para padronizar a chave da tabela

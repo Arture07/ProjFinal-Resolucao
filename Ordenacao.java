@@ -58,7 +58,8 @@ public class Ordenacao {
         tempo = System.nanoTime() - inicio;
     }
 
-    // Insertion Sort: desloca os maiores para a direita e encaixa o eleito na posicao certa
+    // Insertion Sort: desloca os maiores para a direita e encaixa o eleito na
+    // posicao certa
     public static void insertionSort(Tripulante[] v) {
         comparacoes = 0;
         trocas = 0;
@@ -84,7 +85,8 @@ public class Ordenacao {
         tempo = System.nanoTime() - inicio;
     }
 
-    // Quick Sort: usa o elemento do meio como pivo para evitar pior caso em vetores ordenados
+    // Quick Sort: usa o elemento do meio como pivo para evitar pior caso em vetores
+    // ordenados
     public static void quickSort(Tripulante[] v) {
         comparacoes = 0;
         trocas = 0;
@@ -101,22 +103,18 @@ public class Ordenacao {
         int pivo = v[(esq + dir) / 2].codigo;
 
         while (i <= j) {
-            while (true) {
+            comparacoes++;
+            while (v[i].codigo < pivo) {
+                i++;
                 comparacoes++;
-                if (v[i].codigo < pivo) {
-                    i++;
-                } else {
-                    break;
-                }
             }
-            while (true) {
+
+            comparacoes++;
+            while (v[j].codigo > pivo) {
+                j--;
                 comparacoes++;
-                if (v[j].codigo > pivo) {
-                    j--;
-                } else {
-                    break;
-                }
             }
+
             if (i <= j) {
                 Tripulante temp = v[i];
                 v[i] = v[j];

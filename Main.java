@@ -31,21 +31,7 @@ public class Main {
             opcao = lerInteiro(sc);
 
             if (opcao == 1) {
-                System.out.print("Codigo (8 digitos): ");
-                int cod = lerInteiro(sc);
-                if (cod <= 0) {
-                    System.out.println("Codigo invalido! Digite apenas numeros positivos.");
-                    continue;
-                }
-                System.out.print("Nome: ");
-                String nome = sc.nextLine();
-                System.out.print("Planeta natal: ");
-                String planeta = sc.nextLine();
-                System.out.print("Funcao: ");
-                String funcao = sc.nextLine();
-
-                tabela.inserir(new Tripulante(cod, nome, planeta, funcao));
-                System.out.println("Tripulante registrado com sucesso!");
+                registrarTripulante(sc, tabela);
 
             } else if (opcao == 2) {
                 System.out.print("Digite o planeta natal: ");
@@ -53,20 +39,15 @@ public class Main {
                 tabela.buscarPorPlaneta(planeta);
 
             } else if (opcao == 3) {
-                System.out.print("Digite o codigo do tripulante para remover: ");
-                int cod = lerInteiro(sc);
-                if (cod <= 0) {
-                    System.out.println("Codigo invalido! Digite apenas numeros positivos.");
-                } else if (tabela.removerPorCodigo(cod)) {
-                    System.out.println("Tripulante removido!");
-                } else {
-                    System.out.println("Codigo nao encontrado.");
-                }
+                removerTripulante(sc, tabela);
 
             } else if (opcao == 4) {
                 tabela.exibirTabela();
 
             } else if (opcao == 5) {
+                System.out.println("\n=== TABELA ATUAL EM USO ===");
+                tabela.exibirEstatisticas();
+                System.out.println("\n=== COMPARATIVO DO RELATORIO (M = 13, 17 e 23) ===");
                 testarTamanhosEFuncoes();
 
             } else if (opcao == 6) {
@@ -87,7 +68,7 @@ public class Main {
         sc.close();
     }
 
-    // Le um numero inteiro sem quebrar o programa se o usuario digitar letras ou Enter vazio
+    // Le um numero inteiro sem quebrar o programa se digitar letra ou Enter vazio
     public static int lerInteiro(Scanner sc) {
         try {
             return Integer.parseInt(sc.nextLine().trim());
@@ -96,7 +77,56 @@ public class Main {
         }
     }
 
-    // Carrega os tripulantes iniciais do arquivo texto (codigo;nome;planeta;funcao)
+    // Cadastra um novo tripulante validando codigo unico de 8 digitos
+    public static void registrarTripulante(Scanner sc, TabelaHash tabela) {
+        System.out.print("Codigo (8 digitos): ");
+        int cod = lerInteiro(sc);
+        if (cod < 10000000 || cod > 99999999) {
+            System.out.println("Codigo invalido! Use exatamente 8 digitos.");
+            return;
+        }
+        if (tabela.existeCodigo(cod)) {
+            System.out.println("Esse codigo ja existe!");
+            return;
+        }
+
+        System.out.print("Nome: ");
+        String nome = sc.nextLine();
+        if (nome.trim().isEmpty()) {
+            System.out.println("Nome nao pode ser vazio!");
+            return;
+        }
+        System.out.print("Planeta natal: ");
+        String planeta = sc.nextLine();
+        if (planeta.trim().isEmpty()) {
+            System.out.println("Planeta nao pode ser vazio!");
+            return;
+        }
+        System.out.print("Funcao: ");
+        String funcao = sc.nextLine();
+        if (funcao.trim().isEmpty()) {
+            System.out.println("Funcao nao pode ser vazia!");
+            return;
+        }
+
+        tabela.inserir(new Tripulante(cod, nome, planeta, funcao));
+        System.out.println("Tripulante registrado com sucesso!");
+    }
+
+    // Remove um tripulante pelo codigo de 8 digitos
+    public static void removerTripulante(Scanner sc, TabelaHash tabela) {
+        System.out.print("Digite o codigo do tripulante para remover: ");
+        int cod = lerInteiro(sc);
+        if (cod < 10000000 || cod > 99999999) {
+            System.out.println("Codigo invalido! Use exatamente 8 digitos.");
+        } else if (tabela.removerPorCodigo(cod)) {
+            System.out.println("Tripulante removido!");
+        } else {
+            System.out.println("Codigo nao encontrado.");
+        }
+    }
+
+    // Carrega os tripulantes iniciais do arquivo tripulantes.txt
     public static void carregarArquivo(TabelaHash tabela) {
         try {
             Scanner leitor = new Scanner(new File("tripulantes.txt"));
@@ -130,48 +160,63 @@ public class Main {
         }
     }
 
-    // Ordena copias da tripulacao atual com os 3 algoritmos e compara o desempenho
+    // Roda os 3 algoritmos em copias do mesmo vetor, mostra os dados e devolve
+    // ordenado
+    public static Tripulante[] rodarAlgoritmos(Tripulante[] base) {
+        Tripulante[] c1 = Ordenacao.copiarVetor(base);
+        Ordenacao.bubbleSort(c1, false);
+        System.out.println("Bubble Sort    | Tempo: " + Ordenacao.tempo + " ns | Comp: "
+                + Ordenacao.comparacoes + " | Trocas: " + Ordenacao.trocas);
+
+        Tripulante[] c2 = Ordenacao.copiarVetor(base);
+        Ordenacao.insertionSort(c2);
+        System.out.println("Insertion Sort | Tempo: " + Ordenacao.tempo + " ns | Comp: "
+                + Ordenacao.comparacoes + " | Deslocamentos: " + Ordenacao.trocas);
+
+        Tripulante[] c3 = Ordenacao.copiarVetor(base);
+        Ordenacao.quickSort(c3);
+        System.out.println("Quick Sort     | Tempo: " + Ordenacao.tempo + " ns | Comp: "
+                + Ordenacao.comparacoes + " | Trocas: " + Ordenacao.trocas);
+
+        return c3;
+    }
+
+    // Ordena a tripulacao atual e mostra a fila final de embarque
     public static void organizarEmbarque(TabelaHash tabela) {
-        Tripulante[] original = tabela.exportarParaVetor();
-        Tripulante[] copia1 = Ordenacao.copiarVetor(original);
-        Tripulante[] copia2 = Ordenacao.copiarVetor(original);
-        Tripulante[] copia3 = Ordenacao.copiarVetor(original);
-
-        Ordenacao.bubbleSort(copia1, false);
-        System.out.println("\nBubble Sort    -> Comparacoes: " + Ordenacao.comparacoes
-                + " | Trocas: " + Ordenacao.trocas + " | Tempo: " + Ordenacao.tempo + " ns");
-
-        Ordenacao.insertionSort(copia2);
-        System.out.println("Insertion Sort -> Comparacoes: " + Ordenacao.comparacoes
-                + " | Trocas: " + Ordenacao.trocas + " | Tempo: " + Ordenacao.tempo + " ns");
-
-        Ordenacao.quickSort(copia3);
-        System.out.println("Quick Sort     -> Comparacoes: " + Ordenacao.comparacoes
-                + " | Trocas: " + Ordenacao.trocas + " | Tempo: " + Ordenacao.tempo + " ns");
+        System.out.println();
+        Tripulante[] ordenado = rodarAlgoritmos(tabela.exportarParaVetor());
 
         System.out.println("\n--- FILA DE EMBARQUE ORDENADA POR CODIGO ---");
-        for (int i = 0; i < copia3.length; i++) {
-            System.out.println((i + 1) + "º: " + copia3[i]);
+        for (int i = 0; i < ordenado.length; i++) {
+            System.out.println((i + 1) + ". " + ordenado[i]);
         }
     }
 
-    // Mostra na tela cada comparacao e troca do Bubble Sort com ate 6 tripulantes
+    // Mostra na tela cada comparacao e troca do Bubble Sort com ate 10 tripulantes
     public static void modoPassoAPasso(TabelaHash tabela) {
         Tripulante[] todos = tabela.exportarParaVetor();
-        int qtd = 6;
-        if (todos.length < 6) {
+        int qtd = 10;
+        if (todos.length < 10) {
             qtd = todos.length;
         }
 
-        Tripulante[] amostra = new Tripulante[qtd];
+        Tripulante[] primeiros = new Tripulante[qtd];
         for (int i = 0; i < qtd; i++) {
-            amostra[i] = todos[i];
+            primeiros[i] = todos[i];
         }
 
-        Ordenacao.bubbleSort(amostra, true);
+        Ordenacao.bubbleSort(primeiros, true);
+
+        System.out.println("\nTotal no passo a passo -> Comparacoes: "
+                + Ordenacao.comparacoes + " | Trocas: " + Ordenacao.trocas);
+        System.out.println("--- ASSENTOS FINAIS APOS AS MANOBRAS ---");
+        for (int i = 0; i < primeiros.length; i++) {
+            System.out.println((i + 1) + ". " + primeiros[i]);
+        }
     }
 
-    // Gera n tripulantes com codigos unicos de 8 digitos (incrementos positivos + embaralhamento)
+    // Gera n tripulantes combinando nomes e planetas com codigos unicos de 8
+    // digitos
     public static Tripulante[] gerarAleatorios(int n) {
         Tripulante[] v = new Tripulante[n];
         Random rand = new Random(42);
@@ -184,7 +229,6 @@ public class Main {
             v[i] = new Tripulante(codigoBase, nome, planeta, "Tripulante");
         }
 
-        // Embaralha o vetor
         for (int i = 0; i < n; i++) {
             int pos = rand.nextInt(n);
             Tripulante temp = v[i];
@@ -202,7 +246,8 @@ public class Main {
         }
     }
 
-    // Mede tempo, comparacoes e trocas com 50, 1.000 e 10.000 tripulantes em 3 situacoes
+    // Mede tempo, comparacoes e trocas com 50, 1.000 e 10.000 tripulantes nas 3
+    // situacoes
     public static void grandeCorrida() {
         int[] tamanhos = { 50, 1000, 10000 };
 
@@ -218,28 +263,14 @@ public class Main {
             Tripulante[] inverso = Ordenacao.copiarVetor(ordenado);
             inverter(inverso);
 
-            testarCenario("Aleatorio", aleatorio);
-            testarCenario("Ja ordenado", ordenado);
-            testarCenario("Ordem inversa", inverso);
+            System.out.println("\n--- Situacao: Aleatorio ---");
+            rodarAlgoritmos(aleatorio);
+
+            System.out.println("\n--- Situacao: Ja ordenado ---");
+            rodarAlgoritmos(ordenado);
+
+            System.out.println("\n--- Situacao: Ordem inversa ---");
+            rodarAlgoritmos(inverso);
         }
-    }
-
-    public static void testarCenario(String nomeCenario, Tripulante[] base) {
-        System.out.println("\n--- Situacao: " + nomeCenario + " ---");
-
-        Tripulante[] c1 = Ordenacao.copiarVetor(base);
-        Ordenacao.bubbleSort(c1, false);
-        System.out.println("Bubble Sort    | Tempo: " + Ordenacao.tempo + " ns | Comp: "
-                + Ordenacao.comparacoes + " | Trocas: " + Ordenacao.trocas);
-
-        Tripulante[] c2 = Ordenacao.copiarVetor(base);
-        Ordenacao.insertionSort(c2);
-        System.out.println("Insertion Sort | Tempo: " + Ordenacao.tempo + " ns | Comp: "
-                + Ordenacao.comparacoes + " | Trocas: " + Ordenacao.trocas);
-
-        Tripulante[] c3 = Ordenacao.copiarVetor(base);
-        Ordenacao.quickSort(c3);
-        System.out.println("Quick Sort     | Tempo: " + Ordenacao.tempo + " ns | Comp: "
-                + Ordenacao.comparacoes + " | Trocas: " + Ordenacao.trocas);
     }
 }

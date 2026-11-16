@@ -4,14 +4,12 @@ public class TabelaHash {
     public int M;
     public int tipoHash;
     public int totalTripulantes;
-    public int colisoes;
 
     public TabelaHash(int M, int tipoHash) {
         this.M = M;
         this.tipoHash = tipoHash;
         this.baldes = new No[M];
         this.totalTripulantes = 0;
-        this.colisoes = 0;
     }
 
     // Funcao Hash 1: soma dos caracteres
@@ -40,6 +38,20 @@ public class TabelaHash {
         }
     }
 
+    // Verifica se um codigo galactico ja esta cadastrado na tabela
+    public boolean existeCodigo(int codigo) {
+        for (int i = 0; i < M; i++) {
+            No atual = baldes[i];
+            while (atual != null) {
+                if (atual.tripulante.codigo == codigo) {
+                    return true;
+                }
+                atual = atual.proximo;
+            }
+        }
+        return false;
+    }
+
     // Insere o tripulante no balde correspondente (no fim da lista se houver colisao)
     public void inserir(Tripulante novo) {
         int indice = calcularHash(novo.planeta);
@@ -48,7 +60,6 @@ public class TabelaHash {
         if (baldes[indice] == null) {
             baldes[indice] = novoNo;
         } else {
-            colisoes++;
             No atual = baldes[indice];
             while (atual.proximo != null) {
                 atual = atual.proximo;
@@ -61,6 +72,10 @@ public class TabelaHash {
     // Vai direto ao balde calculado pelo hash e lista quem for daquele planeta
     public void buscarPorPlaneta(String planeta) {
         String chave = Tripulante.formatarChave(planeta);
+        if (chave.isEmpty()) {
+            System.out.println("Digite o nome de um planeta valido!");
+            return;
+        }
         int indice = calcularHash(chave);
         No atual = baldes[indice];
         boolean achou = false;
@@ -143,6 +158,7 @@ public class TabelaHash {
             }
         }
 
+        int colisoes = totalTripulantes - (M - vazios);
         double fatorCarga = (double) totalTripulantes / M;
 
         System.out.println("\n--- ESTATISTICAS (M = " + M + " | Funcao Hash " + tipoHash + ") ---");
